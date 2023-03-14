@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+{% block content %}
+
+<style>
+    .productupdate{
+        width: 80%;
+        height: auto;
+        border: 3px solid rgb(24, 23, 23);
+        margin: auto;
+        padding: 20px;
+    }
+    .productupdate h3{
+        text-align: center;
+        text-decoration: underline;
+    }
+    .productupdate input{
+        width: 100%;
+        padding: 10%;
+        border: .5px solid rgb(11, 11, 11);
+
+    }
+</style>
+
+<div class="container">
+    <div class="productupdate mt-5">
+        <h3>Buy Product</h3>
+        {% for message in messages %}
+        <h6 style="color: blue;">{{message}}</h6>
+        {% endfor %}
+        {% for item in products %}
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table class="table">
+                        <tr>
+                            <th><label for="">Product Name:</label></th>
+                            <td><input type="text" name="pname" value="{{item.Product_Name}}"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="">Product Brand:</label></th>
+                            <td><input type="text" name="pbrand" value="{{item.Product_Brand}}"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="">Product Discription:</label></th>
+                            <td><input type="text" name="pdis" value="{{item.Product_Discription}}"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="">Product Price:</label></th>
+                            <td><input type="text" name="pprice" value="{{item.Product_Price}}"></td>
+                        </tr>
+                       
+
+
+                        
+                    </table>
+
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{{item.Product_Image.url}}" style="width: 80%;height: 80%;" alt=""><br><br>
+                <button type="submit" class="btn btn-warning">Buy</button>
+                <a  href="{%url 'CartView' %}" class="btn btn-warning">Add to cart</a><br>
+            </div>
+           
+               
+               
+
+           
+            </form>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
