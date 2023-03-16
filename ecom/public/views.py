@@ -4,7 +4,7 @@ from .forms import UserAddForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from .decorators import admin_only
+from .decorators import admin_only,unauthenticate_user
 from product.models import ProductDetail
 
 @admin_only
@@ -19,6 +19,7 @@ def Index(request):
 def AdminIndex(request):
     return render(request,"admin/adminhome.html")
 
+@unauthenticate_user
 def SignIn(request):
     if request.method == "POST":
         username = request.POST["uname"]
@@ -34,6 +35,7 @@ def SignIn(request):
 
     return render(request,'login.html')
 
+@unauthenticate_user
 def SignUp(request):
     form = UserAddForm()
     

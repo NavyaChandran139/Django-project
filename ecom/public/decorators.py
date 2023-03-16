@@ -13,3 +13,13 @@ def admin_only(view_func):
         if group == "merchant":
             return redirect('AdminIndex')
     return Wrapper_func
+
+def unauthenticate_user(views_fun):
+    def Wrapper_func(request,*args,**kwargs):
+        if request.user.is_unauthenticated:
+            return redirect('index')
+        else:
+            return views_fun(request,*args,**kwargs)
+    return Wrapper_func
+
+
